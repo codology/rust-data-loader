@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    volumes:
+      - ./data:/data
+    environment:
+      - AWS_REGION=us-east-1
+    entrypoint: ["rust-data-ingest", "/data"]
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
